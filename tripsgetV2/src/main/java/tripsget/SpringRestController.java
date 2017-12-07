@@ -1,6 +1,8 @@
 package tripsget;
 
-	import org.springframework.web.bind.annotation.*;
+	import java.util.Random;
+
+import org.springframework.web.bind.annotation.*;
 	import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
 	import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +37,11 @@ package tripsget;
 	    		@RequestParam(value = "hotelBudget", required = false) String hotelBudget,
 	    		@RequestParam(value = "entertainmentBudget", required = false) String entertainmentBudget
 	    		) {
-	       
-			Budget respBudg = new Budget(transportBudget, partyBudget, foodBudget, hotelBudget, entertainmentBudget);
+			if(days == null){
+				days ="1";
+			}
+			double transportBudgetDbl =  Integer.valueOf(transportBudget) + Integer.valueOf(days);
+			Budget respBudg = new Budget(String.valueOf(transportBudgetDbl), partyBudget, foodBudget, hotelBudget, entertainmentBudget);
 
 	        return respBudg;
 	    }
@@ -61,6 +66,8 @@ package tripsget;
 	        public String foodBudget;
 	        public String hotelBudget;
 	        public String entertainmentBudget;
+	        
+	 
 			public String getTransportBudget() {
 				return transportBudget;
 			}
